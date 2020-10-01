@@ -27,7 +27,7 @@ let SP_ATK_NAME = "Demo Fireball";
 
 async function start() {
   ENEMY_NAME = "Default"; //naturally, the function that initiated the battle would set these variables
-  ENEMY_STRENGTH = 5;
+  ENEMY_STRENGTH = 1;//a test value
   ENEMY_HEALTH = ENEMY_STRENGTH * 10;
 
   old_PLAYER_HEALTH = localStorage.getItem('playerStrength');
