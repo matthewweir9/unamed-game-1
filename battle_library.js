@@ -9,8 +9,11 @@ let ENEMY_NAME;
 let ENEMY_HEALTH;
 let ENEMY_STRENGTH;
 
-let PLAYER_STRENGTH = 5;
-let PLAYER_HEALTH = PLAYER_STRENGTH * 10;
+if(localStorage.getItem('playerStrength')){
+  localStorage.setItem('playerStrength', 5);
+}
+  
+let PLAYER_HEALTH = localStorage.getItem('playerStrength') * 10;
 let old_PLAYER_HEALTH; //keeps track of what the player's health was before a battle
 
 let POINTS; //the battle damage
@@ -27,7 +30,7 @@ async function start() {
   ENEMY_STRENGTH = 5;
   ENEMY_HEALTH = ENEMY_STRENGTH * 10;
 
-  old_PLAYER_HEALTH = PLAYER_HEALTH;
+  old_PLAYER_HEALTH = localStorage.getItem('playerStrength');
   battle();
 }
 
@@ -70,7 +73,7 @@ async function battle_menu() {
   while (true) {
     let choice = prompt("What do you want to do?");
     if (choice == "1") {
-      POINTS = Randomizer.nextInt(PLAYER_STRENGTH, PLAYER_STRENGTH + 5);
+      POINTS = Randomizer.nextInt(localStorage.getItem('playerStrength'), localStorage.getItem('playerStrength') + 5);
       displayText("PLAYER has chosen to attack!");
       await sleep(DELAY + 2000);
       break;
@@ -141,12 +144,12 @@ async function win_battle() {
   remove(battle_enemy);
   displayText("You beat the '" + ENEMY_NAME + "'!");
   await sleep(DELAY + 2000);
-  PLAYER_STRENGTH += ENEMY_STRENGTH / 2;
+  localStorage.setItem('playerStrength', localStorage.getItem('playerStrength') + ENEMY_STRENGTH/2);
   displayText(
     "Your strength went up by " +
       ENEMY_STRENGTH / 2 +
       "! It is now " +
-      PLAYER_STRENGTH +
+      localStorage.getItem('playerStrength') +
       "."
   );
   await sleep(DELAY + 2000);
